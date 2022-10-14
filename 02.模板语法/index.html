@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>02.模板语法</title>
+        <script src="../js/vue.js"></script>
+    </head>
+    <body>
+        <!--模板语法有插值语法和指令语法-->
+        <div id="root">
+            <!-- 插值语法一般用于显示标签的内容 -->
+            <h1>插值语法: {{title}}</h1>
+            <h2>指令语法</h2>
+            <!--
+                指令语法常用语解析标签 包括标签属性、标签内容、标签事件
+                v-bind绑定
+                1. 将 “”中的内容即 url 当做js表达式， url在data中找到对应的链接，所以绑定在a标签的href属性上
+                2. v-bind 可以简写为 : 
+                3. v-bind 仅可以绑定数据，单向数据绑定（从data中获取数据绑定到页面中），页面中的数据发生变化，无法修改data中的内容
+            -->
+            <a v-bind:href="url">odinsam 的博客</a>
+            <br />
+            <a :href="Date.now()">当前时间</a>
+        </div>
+    </body>
+    <script>
+        Vue.config.productionTip = false;
+        const vm = new Vue({
+            el: '#root',
+            data: {
+                title: 'hello vue',
+                url: 'http://www.odinsam.com'
+            }
+        });
+    </script>
+</html>

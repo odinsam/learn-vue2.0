@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>03.数据绑定</title>
+        <script src="../js/vue.js"></script>
+    </head>
+    <body>
+        <!--
+            vue有单向数据绑定和双向数据绑定两种
+            1. 单向绑定 v-bind 数据只能从data流向页面
+            2. 双向绑定 v-model 数据不仅可以从data流向页面，当页面发生改变同样可以修改data的内容
+            备注：
+                1. 双向绑定一般都应用在表单元素 如 input select 等
+                2. v-model:value 可以简写为 v-model 因为 v-model默认收集的就是valuede值
+        -->
+        <div id="root">
+            <h2>单向数据绑定 : v-bind 的简写</h2>
+            <input type="text" :value="title" />
+            <h2>双向数据绑定 v-model</h2>
+            <input type="text" v-model:value="title" />
+            <!--
+                如下代码是错误的： [Vue warn]: Failed to resolve directive: modle
+            -->
+            <h2 v-modle:value="title"></h2>
+        </div>
+    </body>
+    <script>
+        Vue.config.productionTip = false;
+        const vm = new Vue({
+            el: '#root',
+            data: {
+                title: 'hello vue',
+                url: 'http://www.odinsam.com'
+            }
+        });
+    </script>
+</html>
