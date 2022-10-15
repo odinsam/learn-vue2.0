@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>12.样式绑定</title>
+        <script src="../js/vue.js"></script>
+        <style>
+            .dvbasic {
+                width: 400px;
+                height: 200px;
+                border: 1px solid black;
+            }
+            .dv1 {
+                background-color: cadetblue;
+            }
+            .dv2 {
+                background-color: coral;
+            }
+            .dv3 {
+                background-color: rgb(222, 216, 50);
+            }
+            .ddvv1 {
+                background-color: rgb(30, 33, 32);
+            }
+            .ddvv2 {
+                color: rgb(241, 227, 227);
+            }
+            .ddvv3 {
+                font-size: 30px;
+            }
+        </style>
+    </head>
+    <body>
+        <!--
+            1. :class='' 可以绑定对应的class样式  可以是 字符串、数组、对象
+            2. :style='' 可以绑定对应的style样式  可以是 直接绑定或者是数组、对象
+        -->
+        <div id="root">
+            <div class="dvbasic" :class="dvClass" @click="dv1Click">
+                div1 - click :class 绑定class样式
+            </div>
+            <br />
+            <div class="dvbasic" :class="dv2Class" @click="dv2Click">
+                div2 - click :class 绑定class样式 数组形式绑定
+            </div>
+            <br />
+            <div class="dvbasic" :class="dv3Class" @click="dv3Click">
+                div3 - click :class 绑定class样式 对象形式绑定
+            </div>
+            <br />
+            <div class="dvbasic" :style="{fontSize: fsize+'px'}">
+                div4 - :style="{fontSize: fsize+'px'}" 绑定style样式
+            </div>
+            <br />
+            <div class="dvbasic" :style="styleObject">
+                div4 - :style="styleObject" 绑定style样式
+            </div>
+            <br />
+            <div class="dvbasic" :style="styleArr">
+                div5 - :style="styleArr" 绑定style样式
+            </div>
+        </div>
+    </body>
+    <script>
+        Vue.config.productionTip = false;
+        const vm = new Vue({
+            el: '#root', // 直接指定vue对应的容器
+            data() {
+                return {
+                    styleArr: [
+                        {
+                            fontSize: '30px'
+                        },
+                        {
+                            backgroundColor: 'green'
+                        }
+                    ],
+                    styleObject: {
+                        fontSize: '20px',
+                        backgroundColor: 'red'
+                    },
+                    fsize: 40,
+                    dvClass: '',
+                    dv2Class: [],
+                    dv3Class: { ddvv1: false, ddvv2: false, ddvv3: false },
+                    dv1ArrClass: ['dv1', 'dv2', 'dv3']
+                };
+            },
+            methods: {
+                dv1Click() {
+                    const index = Math.floor(Math.random() * 3);
+                    console.log(index);
+                    this.dvClass = this.dv1ArrClass[index];
+                },
+                dv2Click() {
+                    if (this.dv2Class.length === 0) {
+                        this.dv2Class.push('ddvv1');
+                        this.dv2Class.push('ddvv2');
+                        this.dv2Class.push('ddvv3');
+                    } else {
+                        this.dv2Class.shift();
+                        this.dv2Class.shift();
+                        this.dv2Class.shift();
+                    }
+                },
+                dv3Click() {
+                    this.dv3Class.ddvv1 = !this.dv3Class.ddvv1;
+                    this.dv3Class.ddvv2 = !this.dv3Class.ddvv2;
+                    this.dv3Class.ddvv3 = !this.dv3Class.ddvv3;
+                }
+            }
+        });
+    </script>
+</html>

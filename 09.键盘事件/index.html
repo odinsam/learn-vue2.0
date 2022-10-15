@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>09.键盘事件</title>
+        <script src="../js/vue.js"></script>
+        <style></style>
+    </head>
+    <body>
+        <!--
+            1. vue 中常用的按键别名
+                回车    enter
+                删除    delete 
+                退格    backSpace
+                退出    esc
+                空格    space
+                换行    tab
+                上      up
+                下      down
+                左      left
+                右      right
+            2. vue未提供别名的按键可以使用按键的原始的key去绑定，但要注意转换为  kebab-case 例如 CapsLock caps-lock
+            3. 可以使用 @keyup.按键别名 绑定对应的按键事件
+            4. tab无法使用keyup绑定 需要使用keydown绑定
+            5. 系统修饰按键  ctrl   alt     shift   meta
+                1. 如果配合keyup使用：按下系统修饰键，再按下其他键，随后释放其他键，事件才会触发
+                2. 如果配合keydown使用 正常触发
+            6. 也可以使用keyCode去绑定，但不推荐  @keyup.keyCode 有可能不同系统不同键盘的keycode不一样导致一些问题
+            7. Vue.config.keyCodes 可以自定义键名   Vue.config.keyCodes.自定义名 = 键码
+                    Vue.config.keyCodes.huiche = 13  指定huiche 为按键13 即enter
+        -->
+        <div id="root">
+            <h2>vue 键盘事件</h2>
+            <label for="lbl">按键按下的是 {{inputKey}}</label>
+            <input type="text" @keyup="showinfo" />
+        </div>
+    </body>
+    <script>
+        Vue.config.productionTip = false;
+        const vm = new Vue({
+            el: '#root', // 直接指定vue对应的容器
+            data() {
+                return {
+                    userName: 'odinsam',
+                    inputKey: ''
+                };
+            },
+            methods: {
+                showinfo(e) {
+                    this.inputKey = `e.key:${e.key}      e.keyCode=${e.keyCode}`;
+                }
+            }
+        });
+    </script>
+</html>

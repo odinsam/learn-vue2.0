@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>07.事件处理</title>
+        <script src="../js/vue.js"></script>
+    </head>
+    <body>
+        <div id="root">
+            <!--
+                1. 事件绑定 使用 v-on: 绑定事件
+                2. click事件可以简写为 @click
+                3. 无参数的事件处理方法 会有一个默认参数 event 代表 eventObject
+                4. 带参数的时间处理方法 也可以带 eventObject 使用 $event传递
+                5. 事件处理函数需要配置在methods中，最终会体现在vm上
+                6. 事件处理函数都是被vue管理的函数，this指向vm或者组件对象实例。不可以使用箭头函数，否则this指向window
+                7. 
+            -->
+            <h2>vue 事件处理</h2>
+            <input type="text" v-model="userName" />
+            <button v-on:click="showInfo">提示信息</button>
+            <button @click="showInfoWithParams(userName,$event)">
+                提示信息2
+            </button>
+        </div>
+    </body>
+    <script>
+        Vue.config.productionTip = false;
+        const vm = new Vue({
+            el: '#root', // 直接指定vue对应的容器
+            data() {
+                return {
+                    userName: 'odinsam'
+                };
+            },
+            methods: {
+                showInfo(event) {
+                    console.log('无参处理函数 showInfo');
+                    console.log(event);
+                },
+                showInfoWithParams(un, event) {
+                    console.log('带参处理函数 showInfoWithParams');
+                    console.log(`input userName: ${un}, event对象:${event}`);
+                }
+            }
+        });
+    </script>
+</html>

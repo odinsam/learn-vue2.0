@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>08. 事件修饰符</title>
+        <script src="../js/vue.js"></script>
+        <style>
+            .parentdv {
+                width: 400px;
+                height: 400px;
+                background-color: bisque;
+                text-align: center;
+            }
+            .childdv {
+                width: 300px;
+                height: 200px;
+                margin: 50px;
+                background-color: cadetblue;
+                text-align: center;
+            }
+        </style>
+    </head>
+    <body>
+        <!--
+            1. prevent 阻止默认事件
+            2. stop 阻止事件冒泡
+            3. once 事件只触发一次
+            4. capture 事件捕获模式 和 冒泡模式刚好相反
+            5. self 是有event.target 是当前操作的元素时才触发
+            6. passive 事件的默认行为立即执行，无需等待回调完毕
+        -->
+        <div id="root">
+            <h2>vue  事件修饰符</h2>
+            <input type="text" v-model="userName" />
+            <!--阻止默认事件    @click.prevent-->
+            <a href="https://odinsam.com" @click.prevent="clickShow">
+                点击弹窗，阻止默认事件 - @click.prevent </a
+            ><br /><br />
+            <!--阻止事件冒泡    @click.stop-->
+            <div class="parentdv" @click.capture="parentClick">
+                <span>事件捕获模式 - @click.capture</span>
+                <div class="childdv" @click.stop="childClick">
+                    阻止事件冒泡 - @click.stop
+                </div>
+            </div>
+            <br />
+            <!--事件只触发一次    @click.once-->
+            <button @click.once="btnOnceClick">
+                事件只触发一次 - @click.once</button
+            ><br /><br />
+            <!--当event.target==self才触发事件    @click.self-->
+            <div class="parentdv" @click.self="dvselfClick">
+                @click.self="dvselfClick"
+                <button @click.stop="childBtnClick">
+                    按钮点击会冒泡，但div的click有self修饰符，所以不触发div的click事件
+                </button>
+            </div>
+            <br /><br />
+            <!--事件的默认行为立即执行，无需等待回调完毕    @click.passive-->
+            <span>显示姓名{{showName}}</span>
+            <button @click.passive="btnClickPassive">@click.passive</button>
+        </div>
+    </body>
+    <script>
+        Vue.config.productionTip = false;
+        const vm = new Vue({
+            el: '#root', // 直接指定vue对应的容器
+            data() {
+                return {
+                    userName: 'odinsam',
+                    showName: ''
+                };
+            },
+            methods: {
+                clickShow() {
+                    alert('function clickShow');
+                },
+                parentClick() {
+                    alert('parent click');
+                },
+                childClick() {
+                    alert('child click');
+                },
+                btnOnceClick() {
+                    alert('click once');
+                },
+                dvselfClick() {
+                    alert('div self click');
+                },
+                childBtnClick() {
+                    alert('child Btn Click');
+                },
+                btnClickPassive() {
+                    for (let i = 0; i < 100000; i++) {
+                        console.log('#');
+                    }
+                    this.showName = this.userName;
+                }
+            }
+        });
+    </script>
+</html>
