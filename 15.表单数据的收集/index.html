@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>15.表单数据的收集</title>
+        <script src="../js/vue.js"></script>
+        <style></style>
+    </head>
+    <body>
+        <!--
+            表单数据收集:
+            1. <input type="text" v-model="userName"/> v-model收集的是value值,即用户输入的值
+            2. <input type="radio" name="sex" value='male'  v-model="sex"  /> v-model收集的是value值, 需要给标签配置value
+            3. <input type="checkbox" value='game'  v-model="hobby"  /> 
+                如果没有配置value 则收集的是checked true or false
+                如果配置了value v-model的初始值是非数组，则收集的是checked true or false
+                如果配置了value v-model的初始值是数组，则收集的是value组成的数组
+            4. v-model 有三个修饰符,可连续使用  v-model.trim.lazy='password'
+                lazy 延迟收集，失去焦点再收集数据   
+                trim 过滤收尾空格  
+                number 将输入的字符串转换为数值
+        -->
+        <div id="root">
+            <h3>表单数据的收集</h3>
+            <div>
+                <form @submit.prevent="submitForm">
+                    <div>
+                        <span>账号</span
+                        ><input
+                            type="text"
+                            v-model.lazy.trim="userInfo.account"
+                        />
+                    </div>
+                    <div>
+                        <span>密码</span
+                        ><input type="password" v-model="userInfo.pwd" />
+                    </div>
+                    <div>
+                        <span>年龄</span
+                        ><input type="number" v-model.number="userInfo.age" />
+                    </div>
+                    <div>
+                        <span>性别</span>
+                        <input
+                            type="radio"
+                            name="sex"
+                            v-model="userInfo.sex"
+                            value="male"
+                        />
+                        <span>男</span>
+                        <input
+                            type="radio"
+                            name="sex"
+                            v-model="userInfo.sex"
+                            value="female"
+                        /><span>女</span>
+                    </div>
+                    <div>
+                        <span>爱好</span>
+                        <input
+                            type="checkbox"
+                            value="study"
+                            v-model="userInfo.hobby"
+                        />学习
+                        <input
+                            type="checkbox"
+                            value="game"
+                            v-model="userInfo.hobby"
+                        />游戏
+                        <input
+                            type="checkbox"
+                            value="eat"
+                            v-model="userInfo.hobby"
+                        />吃饭
+                    </div>
+                    <div>
+                        <span>地址</span>
+                        <select
+                            name="address"
+                            id="address"
+                            v-model="userInfo.address"
+                        >
+                            <option value="beijing">北京</option>
+                            <option value="nanjing">南京</option>
+                            <option value="shanghai">上海</option>
+                        </select>
+                    </div>
+                    <div>
+                        <span>其他信息</span>
+                        <textarea
+                            name="other"
+                            id="other"
+                            cols="30"
+                            rows="10"
+                            v-model="userInfo.other"
+                        ></textarea>
+                    </div>
+                    <div>
+                        <input type="checkbox" v-model="userInfo.agree" />
+                        <span>
+                            阅读并接受<a href="https://odinsam.com"
+                                >《用户协议》</a
+                            >
+                        </span>
+                    </div>
+                    <div><button>提交</button></div>
+                </form>
+            </div>
+        </div>
+    </body>
+    <script>
+        Vue.config.productionTip = false;
+        const vm = new Vue({
+            el: '#root', // 直接指定vue对应的容器
+            data() {
+                return {
+                    userInfo: {
+                        account: '',
+                        pwd: '',
+                        age: 0,
+                        sex: '',
+                        hobby: [],
+                        address: 'nanjing',
+                        other: '',
+                        agree: false
+                    }
+                };
+            },
+            methods: {
+                submitForm() {
+                    console.log('function submitForm');
+                }
+            }
+        });
+    </script>
+</html>
