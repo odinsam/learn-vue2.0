@@ -133,17 +133,17 @@
                     }
                     第二种写法
                     big: {
-                        bind() {
+                        bind(ele,binding) {
                             console.log(
                                 '1次调用 - 当指令与元素绑定成功时调用，在内存，页面并没有元素'
                             );
                         },
-                        inserted() {
+                        inserted(ele, binding) {
                             console.log(
                                 '1或n次调用 - 指令所在的元素被插入页面时调用'
                             );
                         },
-                        update() {
+                        update(ele, binding) {
                             console.log('1或n次调用: 当指令所在模板被重新解析时');
                         }
                     }
@@ -204,17 +204,17 @@
                 //     ele.innerText = binding.value * 10;
                 // }
                 big: {
-                    bind() {
+                    bind(ele, binding) {
                         console.log(
                             '1次调用 - 当指令与元素绑定成功时调用，在内存，页面并没有元素'
                         );
                     },
-                    inserted() {
+                    inserted(ele, binding) {
                         console.log(
                             '1或n次调用 - 指令所在的元素被插入页面时调用'
                         );
                     },
-                    update() {
+                    update(ele, binding) {
                         console.log('1或n次调用: 当指令所在模板被重新解析时');
                     }
                 }
