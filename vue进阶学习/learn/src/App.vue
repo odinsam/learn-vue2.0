@@ -1,28 +1,33 @@
+<!--
+    vue-router路由
+    1. vue-router是vue的一个插件库，专门用来实现spa应用(单页面应用)
+    2. 一个路由就是一组映射关系 key-value,key是路径，value是组件(前端)或函数(后端)
+    3. router/index.js 创建路由表
+    4. main.js 加载VueRouter插件并加载路由表
+    5. 使用route-link实现路由切换 route-view指定展示位置.被切换掉组件会被销毁
+    6. 路由组件一般放在components文件夹，路由组件放在page文件夹
+    7. 每一个组件都有自己的$route属性，存储自己的路由信息
+    8. 整个应用只有一个router，可以通过$router获取
+-->
 <template>
   <div class="dvapp">
-    <!--
-        vue的style
-        1. 多个组件的style可能会出现class重名的情况，当class重名，后引入的组件样式会覆盖之前的同名样式
-        2. 可以在组件的 style 标签中添加 scoped属性，让当前style仅作用于当前组件(app的style不加scoped)
-        3. style 标签还有lang属性，默认是css。若要修改less，需注意:需要添加 less-loader.
-        4. npm view webpack version 可以查看对应版本
-        5. vue2 webpack使用的4.46 less-load 8以后得版本是为了迎合webpack5 所以需要安装less-loader 7版本
-        6. 安装 npm i less-loader@7
-    -->
-    <h2>app组件</h2>
-    <School></School>
-    <Student></Student>
+    <Banner></Banner>
+    <div class="dvnav">
+        <router-link class="navitem" active-class="navitem-active" to="/home">Home Page</router-link>
+        <router-link class="navitem" active-class="navitem-active" to="/about">About Page</router-link>
+    </div>
+    <div class="dvcontent">
+        <router-view></router-view>
+    </div>
   </div>
 </template>
 
 <script>
-import Student from './components/Student.vue';
-import School from './components/School.vue';
+import Banner from './components/Banner.vue';
 export default {
     name: 'App',
     components: {
-        Student,
-        School
+        Banner
     },
     methods: {
         
@@ -38,9 +43,43 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+  
 }
 .dvapp
 {
     background-color: aquamarine;
+    margin: 0px auto;
+    width:800px;
+}
+.dvbanner
+{
+    height:100px;
+    background-color: burlywood;
+
+}
+.dvnav
+{
+    width:200px;
+    height: 500px;
+    background-color: bisque;
+    float: left;
+}
+.navitem{
+    display: block;
+    height: 80px;
+    width:100%;
+    text-align: center;
+    line-height: 80px;
+    
+}
+.navitem-active{
+    background-color: cadetblue;
+}
+.dvcontent{
+    float:right;
+    background-color:cornflowerblue;
+    width:590px;
+    height:500px;
+    padding-left: 10px;
 }
 </style>
