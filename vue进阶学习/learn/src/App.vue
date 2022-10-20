@@ -49,7 +49,7 @@ export default {
 {
     background-color: aquamarine;
     margin: 0px auto;
-    width:800px;
+    width:1000px;
 }
 .dvbanner
 {
@@ -78,7 +78,7 @@ export default {
 .dvcontent{
     float:right;
     background-color:cornflowerblue;
-    width:590px;
+    width:790px;
     height:500px;
     padding-left: 10px;
 }
